@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { Header } from './Header';
 import { checkValidData } from '../utils/Validate';
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword,updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_URL } from '../utils/constants';
 
 export const Login = () => {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null)
     const email = useRef(null);
@@ -31,17 +32,17 @@ export const Login = () => {
                     const user = userCredential.user;
                     updateProfile(user, {
                         displayName: name.current.value
-                      }).then(() => {
+                    }).then(() => {
                         // Profile updated!
                         // ...
                         const { uid, email, displayName } = auth.currentUser;
-                        dispatch(addUser({uid: uid, email: email, displayName: displayName}))
-                      }).catch((error) => {
+                        dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+                    }).catch((error) => {
                         // An error occurred
                         // ...
                         setErrorMessage(error.message)
-                      });
-                    
+                    });
+
                     // ...
                 })
                 .catch((error) => {
@@ -62,7 +63,7 @@ export const Login = () => {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    setErrorMessage(errorCode+"-"+errorMessage)
+                    setErrorMessage(errorCode + "-" + errorMessage)
                 });
         }
     }
@@ -71,7 +72,7 @@ export const Login = () => {
             <Header />
             <img
                 className='absolute'
-                src="https://assets.nflxext.com/ffe/siteui/vlv3/c38a2d52-138e-48a3-ab68-36787ece46b3/eeb03fc9-99c6-438e-824d-32917ce55783/IN-en-20240101-popsignuptwoweeks-perspective_alpha_website_medium.jpg" alt="logo" />
+                src={BG_URL} alt="logo" />
             <form onSubmit={(e) => { e.preventDefault() }} className='w-3/12 absolute p-6 my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80 bg-black'>
                 <h1 className='font-bold text-3xl py-4'>{isSignInForm ? "SignIn" : "SignUp"}</h1>
                 {!isSignInForm && <input type="text" placeholder="Full Name" className='p-4 my-4 w-full bg-gray-700 rounded-lg' ref={name} />}
