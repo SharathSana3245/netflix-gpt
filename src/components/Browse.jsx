@@ -8,6 +8,7 @@ import { MainContainer } from './mainContainer';
 import { SecondaryContainer } from './secondaryContainer';
 import { GptSearch } from './GptSearch';
 import { useSelector } from 'react-redux';
+import { MoviePage } from './MoviePage';
 export function Browse(props) {
     const gpt = useSelector((store) => store.gpt)
     useNowPlayingMovies();
@@ -19,7 +20,7 @@ export function Browse(props) {
             <Header />
             {gpt.ShowGptSearch ? <GptSearch /> : <><MainContainer />
                 <SecondaryContainer /></>}
-
+            <MoviePage />
         </div>
     )
 }

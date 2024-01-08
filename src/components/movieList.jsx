@@ -1,18 +1,18 @@
-import React,{useEffect,useState} from 'react';
+import React, {useState } from 'react';
 import MovieCard from './movieCard';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-export function MovieList({ title, movies, }) {
-const [scroll,setScroll]=useState(0)
+export function MovieList({ title, movies }) {
+    const [scroll, setScroll] = useState(0)
     const slideLeft = () => {
         const slider = document.getElementById(title);
-        let value=slider.scrollLeft - 300
+        let value = slider.scrollLeft - 300
         slider.scrollLeft = value;
         setScroll(value)
     };
     const slideright = () => {
         const slider = document.getElementById(title);
-        let value=slider.scrollLeft + 300
+        let value = slider.scrollLeft + 300
         slider.scrollLeft = value;
         setScroll(value)
     }
@@ -22,15 +22,15 @@ const [scroll,setScroll]=useState(0)
                 {title}
             </h1>
             <div className='flex'>
-                {scroll &&<button className='text-white' onClick={slideLeft}><ChevronLeftIcon/></button>}
-                <div id={`${title}`} className='flex overflow-x-hidden scroll-smooth'>
+                {<button className='text-white' onClick={slideLeft}><ChevronLeftIcon /></button>}
+                <div id={`${title}`} className='flex overflow-x-hidden overflow-y-hidden scroll-smooth'>
                     <div className='flex'>
                         {movies?.map((movie) =>
-                            <MovieCard key={movie.id} posterPath={movie.poster_path} />
+                            <MovieCard key={movie.id} posterPath={movie.poster_path} movie={movie} />
                         )}
                     </div>
                 </div>
-                <button onClick={slideright} className='text-white'><ChevronRightIcon/></button>
+                <button onClick={slideright} className='text-white'><ChevronRightIcon /></button>
             </div>
 
         </div>
